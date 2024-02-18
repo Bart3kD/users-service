@@ -16,17 +16,14 @@ class UserRepository:
         users.append(user)
         return user
 
-
     def get_all(self):
         return users
-
 
     def get_by_id(self, user_id):
         for user in users:
             if user.id == user_id:
                 return user
         return None
-
 
     def update(self, user_id, user_data):
         user = self.get_by_id(user_id)
@@ -40,7 +37,6 @@ class UserRepository:
 
             return user
         return None
-
 
     def delete(self, user_id):
         user = self.get_by_id(user_id)
