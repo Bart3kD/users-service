@@ -7,14 +7,14 @@ class UserController:
     def create(self, user_data) -> None:
         return self._repository.create(user_data)
 
-    def get_all(self):
+    def get_all(self) -> None:
         return self._repository.get_all()
 
-    def get_by_id(self, user_id):
+    def get_by_id(self, user_id) -> None:
         return self._repository.get_by_id(user_id)
 
-    def update(self, user_id, user_data):
+    def update(self, user_id, user_data) -> None:
         return self._repository.update(user_id, user_data)
 
-    def delete(self, user_id):
+    def delete(self, user_id) -> None:
         return self._repository.delete(user_id)

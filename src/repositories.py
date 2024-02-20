@@ -17,12 +17,12 @@ class UserRepository:
         return user
 
     def get_all(self):
-        return users
+        return users.as_dict
 
     def get_by_id(self, user_id):
         for user in users:
             if user.id == user_id:
-                return user
+                return user.as_dict
         return None
 
     def update(self, user_id, user_data):
