@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request
 from src.controllers import UserController
 from src.repositories import UserRepository
 from src.users import User

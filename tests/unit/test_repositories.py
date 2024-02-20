@@ -11,17 +11,27 @@ def repository() -> UserRepository:
     return UserRepository()
 
 
-def test_raises_on_create_method(
-    repository: UserRepository,
-) -> None:
-    user_data = {"id": 0, "firstName": "Ame", "lastName": "Thing", "birthYear": 1995, "group": "user"}
-    with pytest.raises(NotImplementedError):
-        repository.create(user_data)
+def test_users_repository_returns_users(repository: UserRepository,) -> None:
+    actual = repository.get_all()
+    assert actual == users
 
 
-def test_stores_title_in_books_list(
-    repository: UserRepository,
-) -> None:
-    user = User(2, "John", "Doe", 1990, "user")
-    repository.create(user)
-    assert {user.firstName == "John"} in users
+def test_users_repository_returns_user_by_id(repository: UserRepository,) -> None:
+    repository.create({"firstName": "Ame", "lastName": "Thing", "birthYear": 1995, "group": "user"})
+    actual = repository.get_by_id(3).as_dict
+    assert actual == users[0].as_dict
+
+
+def test_users_repository_returns_updated_user(repository: UserRepository,) -> None:
+    repository.create({"firstName": "Ame", "lastName": "Thing", "birthYear": 1995, "group": "user"})
+    user_id = 3
+    user_data = {"id": 3, "firstName": "Amanda", "lastName": "Sing", "birthYear": 1992, "group": "user"}
+    actual = repository.update(user_id, user_data).as_dict
+    assert actual == users[0].as_dict
+
+
+def test_users_repository_deletes_user(repository: UserRepository,) -> None:
+    repository.create({"firstName": "Ame", "lastName": "Thing", "birthYear": 1995, "group": "user"})
+    user_id = 3
+    actual = repository.delete(user_id)
+    assert actual == True
