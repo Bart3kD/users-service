@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 class User:
     ALLOWED_GROUPS = {"user", "premium", "admin"}
@@ -26,3 +27,13 @@ class User:
     def age(self):
         current_year = datetime.now().year
         return current_year - self.birth_year
+
+    @property
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "age": self.age,
+            "group": self.group
+        }

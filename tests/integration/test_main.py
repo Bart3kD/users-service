@@ -17,10 +17,9 @@ def test_get_user_by_id_endpoint() -> None:
 
     user_data = {"firstName": "John", "lastName": "Doe", "birthYear": 1990, "group": "user"}
 
-    create_response = client.post("/users", json=user_data)
-    created_user_id = create_response.json.get("id")
+    client.post("/users", json=user_data)
 
-    actual = client.get(f"/users/{created_user_id}")
+    actual = client.get(f"/users/1")
     assert actual.status_code == STATUS_OK
 
 
@@ -38,10 +37,10 @@ def test_patch_users_endpoint() -> None:
 
     user_data = {"firstName": "John", "lastName": "Doe", "birthYear": 1990, "group": "user"}
 
-    create_response = client.post("/users", json=user_data)
-    created_user_id = create_response.json.get("id")
+    client.post("/users", json=user_data)
 
-    actual = client.patch(f"/users/{created_user_id}", json=user_data)
+
+    actual = client.patch(f"/users/1", json=user_data)
     assert actual.status_code == STATUS_OK
 
 
@@ -50,8 +49,7 @@ def test_delete_user_endpoint() -> None:
 
     user_data = {"firstName": "John", "lastName": "Doe", "birthYear": 1990, "group": "user"}
 
-    create_response = client.post("/users", json=user_data)
-    created_user_id = create_response.json.get("id")
+    client.post("/users", json=user_data)
 
-    actual = client.delete(f"/users/{created_user_id}")
+    actual = client.delete(f"/users/1")
     assert actual.status_code == NO_CONTENT

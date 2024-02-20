@@ -3,6 +3,7 @@ from src.controllers import UserController
 from src.repositories import UserRepository
 from src.users import User
 from flask import Flask, Response
+from json import dumps
 
 app = Flask(__name__)
 
@@ -14,16 +15,16 @@ user_controller = UserController(user_repository)
 def get_all_users():
     users = user_controller.get_all()
     if users:
-        return jsonify([vars(user) for user in users]), 200
+        return Response(response=[user.as_dict for user in users], status=200, mimetype='application/json')
     else:
-        return Response(status=404)
+        return Response(response=dumps([]), status=200, mimetype='application/json')
 
 
 @app.get("/users/<int:user_id>")
 def get_user_by_id(user_id):
     user = user_controller.get_by_id(user_id)
     if user:
-        return jsonify(vars(user)), 200
+        return Response(response=user.as_dict, status=200,  mimetype='application/json')
     else:
         return Response(status=404)
 
@@ -33,7 +34,7 @@ def create_user():
     user_data = request.json
     try:
         user = user_controller.create(user_data)
-        return jsonify(vars(user)), 201
+        return Response(status=201)
     except ValueError as e:
         return Response(str(e), status=400)
 
@@ -42,10 +43,13 @@ def create_user():
 def update_user(user_id):
     user_data = request.json
     user = user_controller.update(user_id, user_data)
-    if user:
-        return jsonify(vars(user)), 200
-    else:
-        return Response(status=400)
+    try:
+        if user:
+            return Response(response=user.as_dict, status=200,  mimetype='application/json')
+        else:
+            return Response(status=400)
+    except ValueError as e:
+        return Response(str(e), status=400)
 
 
 @app.delete("/users/<int:user_id>")
