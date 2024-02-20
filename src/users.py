@@ -26,13 +26,3 @@ class User:
     def age(self):
         current_year = datetime.now().year
         return current_year - self.birth_year
-
-    @property
-    def as_dict(self):
-        return {
-            "id": self.id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "age": self.age,
-            "group": self.group
-        }

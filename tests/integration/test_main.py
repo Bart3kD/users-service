@@ -30,7 +30,7 @@ def test_post_users_endpoint() -> None:
     user_data = {"firstName": "John", "lastName": "Doe", "birthYear": 1990, "group": "user"}
 
     actual = client.post("/users", json=user_data)
-    assert actual.status_code == STATUS_OK
+    assert actual.status_code == CREATED
 
 
 def test_patch_users_endpoint() -> None:

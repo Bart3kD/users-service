@@ -1,5 +1,5 @@
 from src.main import app, get_all_users, get_user_by_id, create_user, update_user
-from unittest import patch
+from unittest.mock import patch
 import pytest
 
 STATUS_OK = 200
@@ -28,7 +28,7 @@ def test_get_users_endpoint_returns_200(user_data) -> None:
     with patch("src.main.user_controller") as mock:
         mock.get_all.return_value = user_data
 
-    actual = get_all_users(user_data)
+    actual = get_all_users()
     assert actual.status_code == STATUS_OK
 
 
@@ -36,7 +36,7 @@ def test_get_users_endpoint_returns_404() -> None:
     with patch("src.main.user_controller") as mock:
         mock.get_all.return_value = {}
 
-    actual = get_all_users({})
+    actual = get_all_users()
     assert actual.status_code == NOT_FOUND
 
 

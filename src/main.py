@@ -14,7 +14,7 @@ user_controller = UserController(user_repository)
 def get_all_users():
     users = user_controller.get_all()
     if users:
-        return jsonify([user.as_dict for user in users]), 200
+        return jsonify([vars(user) for user in users]), 200
     else:
         return Response(status=404)
 
@@ -23,7 +23,7 @@ def get_all_users():
 def get_user_by_id(user_id):
     user = user_controller.get_by_id(user_id)
     if user:
-        return jsonify(user.as_dict), 200
+        return jsonify(vars(user)), 200
     else:
         return Response(status=404)
 
@@ -33,7 +33,7 @@ def create_user():
     user_data = request.json
     try:
         user = user_controller.create(user_data)
-        return jsonify(user.as_dict), 201
+        return jsonify(vars(user)), 201
     except ValueError as e:
         return Response(str(e), status=400)
 
@@ -43,7 +43,7 @@ def update_user(user_id):
     user_data = request.json
     user = user_controller.update(user_id, user_data)
     if user:
-        return jsonify(user.as_dict), 200
+        return jsonify(vars(user)), 200
     else:
         return Response(status=400)
 
