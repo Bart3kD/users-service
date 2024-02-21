@@ -45,7 +45,7 @@ def update_user(user_id):
     user = user_controller.update(user_id, user_data)
     try:
         if user:
-            return Response(response=user.as_dict, status=200,  mimetype='application/json')
+            return Response(status=200,  mimetype='application/json')
         else:
             return Response(status=400)
     except ValueError as e:

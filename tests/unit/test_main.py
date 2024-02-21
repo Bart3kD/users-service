@@ -103,15 +103,6 @@ def test_patch_users_endpoint_returns_400_when_wrong_group(user) -> None:
 
     assert actual.status_code == BAD_REQUEST
 
-# def test_patch_users_endpoint_returns_right_value(user) -> None:
-#     with patch("src.controllers.UserController") as mock_controller:
-#         mock_controller.return_value.get_by_id.return_value = user
-
-#         with app.test_request_context(json={"id": 3, "firstName": "Ame", "lastName": "Thing", "birthYear": 1995, "group": "user"}):
-#             actual = update_user(0)
-
-#     assert actual.get_json() == [User(3, "Ame", "Thing", 29, "user").as_dict]
-
 
 def test_delete_user_endpoint_returns_204(user) -> None:
     with patch("src.controllers.UserController") as mock_controller:
